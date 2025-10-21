@@ -10,6 +10,9 @@
     <!-- Google Fonts: Playfair Display & Inter --><link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Swiper.js CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     
     <style>
         /* Base Styles */
@@ -100,7 +103,7 @@
 
         /* Hero Section */
         .hero-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://unsplash.com/photos/white-ceramic-mug-and-saucer-with-coffee-beans-on-brown-textile-tNALoIZhqVM=format&fit=crop&w=1974&q=80');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1511920183353-3c79502f5a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80');
             background-size: cover;
             background-position: center;
         }
@@ -118,9 +121,40 @@
             box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
         }
 
-        /* Animation Styles */
-        /* Removed old floating-element animations as they are replaced by the new background animation */
-        
+        /* Gallery / Swiper Styles */
+        .swiper {
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 50px;
+        }
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 320px;
+            height: 400px;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .swiper-button-next, .swiper-button-prev {
+            color: var(--coffee);
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            transition: background-color 0.3s ease;
+        }
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+            background-color: white;
+        }
+        .swiper-button-next::after, .swiper-button-prev::after {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .swiper-pagination-bullet-active {
+            background: var(--coffee);
+        }
+
         @keyframes rise {
             0% { transform: translateY(0) scale(0.8); opacity: 0; }
             50% { opacity: 0.2; }
@@ -162,13 +196,14 @@
 </head>
 <body class="antialiased">
 
-    <!-- Removed old floating animated elements to use the new background image --><!-- Header & Navigation --><header id="header" class="fixed top-0 left-0 right-0 z-50 text-white transition-all duration-300">
+    <!-- Header & Navigation --><header id="header" class="fixed top-0 left-0 right-0 z-50 text-white transition-all duration-300">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#home" class="text-2xl font-bold" style="font-family: 'Playfair Display', serif;">Ethio Coffee</a>
             
             <nav class="hidden md:flex space-x-8">
                 <a href="#story" class="nav-link relative transition-colors duration-300">Our Story</a>
                 <a href="#menu" class="nav-link relative transition-colors duration-300">Menu</a>
+                <a href="#gallery" class="nav-link relative transition-colors duration-300">Gallery</a>
                 <a href="#visit" class="nav-link relative transition-colors duration-300">Visit Us</a>
             </nav>
             
@@ -196,7 +231,7 @@
             <div class="container mx-auto px-6">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div class="order-2 md:order-1">
-                        <img src="https://images.unsplash.com/photo-1671225142630-6fd7deff0def?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687" class="rounded-lg shadow-xl w-full h-auto object-cover">
+                        <img src="https://images.unsplash.com/photo-1671225142630-6fd7deff0def?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687" alt="Traditional Ethiopian coffee ceremony pot" class="rounded-lg shadow-xl w-full h-auto object-cover">
                     </div>
                     <div class="text-center md:text-left order-1 md:order-2">
                         <h2 class="text-3xl md:text-4xl font-bold text-coffee mb-4">A Tradition in Every Cup</h2>
@@ -215,118 +250,69 @@
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-3xl md:text-4xl font-bold text-coffee mb-2">Our Menu</h2>
                 <p class="mb-12 text-gray-600 max-w-2xl mx-auto">Authentic dishes prepared with fresh ingredients and traditional Ethiopian spices. Coffee menu available in-store.</p>
-
-                <!-- Category: Traditional Breakfast & Porridges --><div class="mb-16">
+                <div class="mb-16">
                     <h3 class="text-2xl md:text-3xl font-bold text-coffee mb-8">Traditional Breakfast & Porridges</h3>
                     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
-                        <div class="menu-card">
-                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Genfo</h4>
-                            <p class="text-gold font-bold text-lg mb-2">$14.00</p>
-                            <p class="text-gray-600 text-sm">A thick, comforting barley porridge served with a well of spiced butter (kibe) and chili powder (berbere).</p>
-                        </div>
-                        <div class="menu-card">
-                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Chechebsa</h4>
-                            <p class="text-gold font-bold text-lg mb-2">$13.00</p>
-                            <p class="text-gray-600 text-sm">Torn pieces of flatbread sautéed in spiced butter and berbere. A savory, popular breakfast dish.</p>
-                        </div>
-                        <div class="menu-card">
-                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Bula</h4>
-                            <p class="text-gold font-bold text-lg mb-2">$14.00</p>
-                            <p class="text-gray-600 text-sm">A nutritious porridge made from the root of the Enset plant, known for its smooth, delicate flavor.</p>
-                        </div>
-                         <div class="menu-card">
-                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Kencha</h4>
-                            <p class="text-gold font-bold text-lg mb-2">$10.00</p>
-                            <p class="text-gray-600 text-sm">A traditional dish made from finely ground grains, similar to a flatbread, served with flavorful accompaniments.</p>
-                        </div>
+                        <div class="menu-card"><h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Genfo</h4><p class="text-gold font-bold text-lg mb-2">$14.00</p><p class="text-gray-600 text-sm">A thick, comforting barley porridge served with a well of spiced butter (kibe) and chili powder (berbere).</p></div>
+                        <div class="menu-card"><h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Chechebsa</h4><p class="text-gold font-bold text-lg mb-2">$13.00</p><p class="text-gray-600 text-sm">Torn pieces of flatbread sautéed in spiced butter and berbere. A savory, popular breakfast dish.</p></div>
+                        <div class="menu-card"><h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Bula</h4><p class="text-gold font-bold text-lg mb-2">$14.00</p><p class="text-gray-600 text-sm">A nutritious porridge made from the root of the Enset plant, known for its smooth, delicate flavor.</p></div>
+                        <div class="menu-card"><h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Kencha</h4><p class="text-gold font-bold text-lg mb-2">$10.00</p><p class="text-gray-600 text-sm">A traditional dish made from finely ground grains, similar to a flatbread, served with flavorful accompaniments.</p></div>
                     </div>
                 </div>
-
-                <!-- Category: Fitfit & Firfir --><div class="mb-16">
+                <div class="mb-16">
                     <h3 class="text-2xl md:text-3xl font-bold text-coffee mb-8">Fitfit & Firfir</h3>
                     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
-                        <div class="menu-card">
-                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Tomato Fitfit</h4>
-                            <p class="text-gold font-bold text-lg mb-2">$10.00</p>
-                            <p class="text-gray-600 text-sm">Pieces of injera mixed with a fresh, seasoned tomato sauce, onions, and peppers.</p>
-                        </div>
-                        <div class="menu-card">
-                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Injera Firfir</h4>
-                            <p class="text-gold font-bold text-lg mb-2">$16.00</p>
-                            <p class="text-gray-600 text-sm">Shredded injera soaked in a savory, spicy stew. A classic and hearty vegetarian staple.</p>
-                        </div>
-                        <div class="menu-card">
-                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Meat Firfir</h4>
-                            <p class="text-gold font-bold text-lg mb-2">$18.00</p>
-                            <p class="text-gray-600 text-sm">Our classic injera firfir featuring tender pieces of seasoned beef for a richer flavor.</p>
-                        </div>
-                        <div class="menu-card">
-                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Sunflower Fitfit</h4>
-                            <p class="text-gold font-bold text-lg mb-2">$10.00</p>
-                            <p class="text-gray-600 text-sm">A unique and nutty fitfit made with ground sunflower seeds, spices, and bits of injera.</p>
-                        </div>
-                        <div class="menu-card">
-                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Flaxseed Fitfit</h4>
-                            <p class="text-gold font-bold text-lg mb-2">$10.00</p>
-                            <p class="text-gray-600 text-sm">A healthy and flavorful option with ground flaxseed sauce mixed with torn injera.</p>
-                        </div>
-                         <div class="menu-card">
-                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Egg Firfir</h4>
-                            <p class="text-gold font-bold text-lg mb-2">$12.00</p>
-                            <p class="text-gray-600 text-sm">Scrambled eggs cooked with spices, onions, and torn injera for a fulfilling meal.</p>
-                        </div>
+                        <div class="menu-card"><h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Tomato Fitfit</h4><p class="text-gold font-bold text-lg mb-2">$10.00</p><p class="text-gray-600 text-sm">Pieces of injera mixed with a fresh, seasoned tomato sauce, onions, and peppers.</p></div>
+                        <div class="menu-card"><h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Injera Firfir</h4><p class="text-gold font-bold text-lg mb-2">$16.00</p><p class="text-gray-600 text-sm">Shredded injera soaked in a savory, spicy stew. A classic and hearty vegetarian staple.</p></div>
+                        <div class="menu-card"><h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Meat Firfir</h4><p class="text-gold font-bold text-lg mb-2">$18.00</p><p class="text-gray-600 text-sm">Our classic injera firfir featuring tender pieces of seasoned beef for a richer flavor.</p></div>
+                        <div class="menu-card"><h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Sunflower Fitfit</h4><p class="text-gold font-bold text-lg mb-2">$10.00</p><p class="text-gray-600 text-sm">A unique and nutty fitfit made with ground sunflower seeds, spices, and bits of injera.</p></div>
+                        <div class="menu-card"><h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Flaxseed Fitfit</h4><p class="text-gold font-bold text-lg mb-2">$10.00</p><p class="text-gray-600 text-sm">A healthy and flavorful option with ground flaxseed sauce mixed with torn injera.</p></div>
+                        <div class="menu-card"><h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Egg Firfir</h4><p class="text-gold font-bold text-lg mb-2">$12.00</p><p class="text-gray-600 text-sm">Scrambled eggs cooked with spices, onions, and torn injera for a fulfilling meal.</p></div>
                     </div>
                 </div>
-
-                <!-- Category: Savory Plates & Specialties --><div>
+                <div>
                     <h3 class="text-2xl md:text-3xl font-bold text-coffee mb-8">Savory Plates & Specialties</h3>
                     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
-                        <div class="menu-card">
-                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Fuul</h4>
-                            <p class="text-gold font-bold text-lg mb-2">$13.00</p>
-                            <p class="text-gray-600 text-sm">A hearty dish of mashed fava beans seasoned with spices, fresh onion, and tomato.</p>
-                        </div>
-                        <div class="menu-card">
-                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Special Fuul</h4>
-                            <p class="text-gold font-bold text-lg mb-2">$14.00</p>
-                            <p class="text-gray-600 text-sm">Our classic Fuul enhanced with yogurt, feta, and extra toppings for a richer experience.</p>
-                        </div>
-                        <div class="menu-card">
-                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Fata for One</h4>
-                            <p class="text-gold font-bold text-lg mb-2">$10.00</p>
-                            <p class="text-gray-600 text-sm">Pieces of bread soaked in a delicious, spiced stew. A perfect single serving.</p>
-                        </div>
-                        <div class="menu-card">
-                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Fata for Two</h4>
-                            <p class="text-gold font-bold text-lg mb-2">$14.00</p>
-                            <p class="text-gray-600 text-sm">A larger, shareable portion of our savory Fata. Perfect for enjoying together.</p>
-                        </div>
-                         <div class="menu-card">
-                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Kitfo Dulet</h4>
-                            <p class="text-gold font-bold text-lg mb-2">$14.00</p>
-                            <p class="text-gray-600 text-sm">A delicacy of finely chopped beef, tripe, and liver seasoned with mitmita and spiced butter.</p>
-                        </div>
-                        <div class="menu-card">
-                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Kitfo Sandwich</h4>
-                            <p class="text-gold font-bold text-lg mb-2">$10.00</p>
-                            <p class="text-gray-600 text-sm">Our signature Kitfo (minced raw beef) seasoned and served in a fresh bread roll.</p>
-                        </div>
-                         <div class="menu-card">
-                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Egg Sandwich</h4>
-                            <p class="text-gold font-bold text-lg mb-2">$10.00</p>
-                            <p class="text-gray-600 text-sm">Freshly scrambled eggs seasoned with Ethiopian spices and served in a warm bread roll.</p>
-                        </div>
-                        <div class="menu-card">
-                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Home made Burger</h4>
-                            <p class="text-gold font-bold text-lg mb-2">$13.00</p>
-                            <p class="text-gray-600 text-sm">A juicy beef patty seasoned with a unique blend of our house spices, served on a toasted bun.</p>
-                        </div>
+                        <div class="menu-card"><h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Fuul</h4><p class="text-gold font-bold text-lg mb-2">$13.00</p><p class="text-gray-600 text-sm">A hearty dish of mashed fava beans seasoned with spices, fresh onion, and tomato.</p></div>
+                        <div class="menu-card"><h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Special Fuul</h4><p class="text-gold font-bold text-lg mb-2">$14.00</p><p class="text-gray-600 text-sm">Our classic Fuul enhanced with yogurt, feta, and extra toppings for a richer experience.</p></div>
+                        <div class="menu-card"><h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Fata for One</h4><p class="text-gold font-bold text-lg mb-2">$10.00</p><p class="text-gray-600 text-sm">Pieces of bread soaked in a delicious, spiced stew. A perfect single serving.</p></div>
+                        <div class="menu-card"><h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Fata for Two</h4><p class="text-gold font-bold text-lg mb-2">$14.00</p><p class="text-gray-600 text-sm">A larger, shareable portion of our savory Fata. Perfect for enjoying together.</p></div>
+                        <div class="menu-card"><h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Kitfo Dulet</h4><p class="text-gold font-bold text-lg mb-2">$14.00</p><p class="text-gray-600 text-sm">A delicacy of finely chopped beef, tripe, and liver seasoned with mitmita and spiced butter.</p></div>
+                        <div class="menu-card"><h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Kitfo Sandwich</h4><p class="text-gold font-bold text-lg mb-2">$10.00</p><p class="text-gray-600 text-sm">Our signature Kitfo (minced raw beef) seasoned and served in a fresh bread roll.</p></div>
+                        <div class="menu-card"><h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Egg Sandwich</h4><p class="text-gold font-bold text-lg mb-2">$10.00</p><p class="text-gray-600 text-sm">Freshly scrambled eggs seasoned with Ethiopian spices and served in a warm bread roll.</p></div>
+                        <div class="menu-card"><h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Home made Burger</h4><p class="text-gold font-bold text-lg mb-2">$13.00</p><p class="text-gray-600 text-sm">A juicy beef patty seasoned with a unique blend of our house spices, served on a toasted bun.</p></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Visit Us Section --><section id="visit" class="py-20 md:py-28 bg-cream">
+        <!-- Gallery Section -->
+        <section id="gallery" class="py-20 md:py-28 bg-cream">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-coffee mb-2">A Glimpse of Ethio</h2>
+                <p class="mb-12 text-gray-600">Discover the moments we cherish.</p>
+                <!-- Swiper -->
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4npwxoNhWkO_H8fId4Qb9lgN_bxWttBq-heK0pkCCybxNcyRSROy9w5fvw56rnqmeV08rZzXRWgGIN46Z2BWaVhq-9DxJ4vVEGpKVEBHi5231Itjl8KlLOIDK0onTv8YJhC4H5kebg=s680-w680-h510-rw')"></div>
+                        <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4npCIbc-w64aLtkrXVPCY8UX4WZpeNQeItuuPveOvikKGSsVCcQ7FhmMQ101zOdFgtuXuJbJy3O8Uxc7pobhIkxwI5gBPIx3HC9GHlxm5JOwkRqu3CKdFzvyc2EXH9rpmm20KDFs=s680-w680-h510-rw')"></div>
+                        <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4npxPp3dxJBKtSgDNmFbTdhpgxzyhDLxykyTO2fMD1BIJyD9o-8ZLa6dTPzR_jPxJS_dGW83mZU0Db1YRHP_lx0zB4HLOhi1fTUM61vymgR9CnL73bFuKhjVel_WXWWhXtEpKR67yf26vaa0=s680-w680-h510-rw')"></div>
+                        <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrkOQWev4gmyV8SqbArAsjTHNkNgHvkfl2igId27mAg5CQmAdnyKtWS0uOm9uLdGSU7BKRnBK6m-IAfM5RkY3G6_N_nO9-jipvyNmnNNyJq3bK1RV1HKVYf8fpZv7fjDD2KASu0Sg=s680-w680-h510-rw')"></div>
+                        <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqRukHnVTid1z34iWTSyGAZubuJrFvaqUkzw1rUkcRAhbwX8Du-wzuR4JVSSbTKP15xX80vdkiNOYqk_p8lQWePUHoUz8vOtla_E2JsyInhDvg2IYF9--c0fIJQ6bjrT0R4d92TYg=s680-w680-h510-rw')"></div>
+                         <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqXAHzsLwnyCyGxEfwJmTv6Z45GNuhJ0Nku0qAXG92DoVorF3bSp1CSKDcG7NByvBgdn3dcXDmIOM7gT0j2VO33YAyyRRMsH6gXTCvQAATN79SC6ygd4M4EZ8QTHVMdg8RTS6xF=s680-w680-h510-rw')"></div>
+                         <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4nq53rAFqsOtk3vM-wz5ekYUEZRZ4HwBCMoM4DysMcmk_P4NTNhYGPpusKKKrtrdqnkyTknwRZXsAwei0kHH_NhCuLuIBgFthifmpQFvVSTVOXOM2VFHGfTQ4dF5K8UvH48T11pl=s680-w680-h510-rw')"></div>
+                         <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrQ5CnJ2D2gB4mH3J2Oo4a3HPYzWLSFm657Obi_jrf5DpsNvAo-UrXKHht0x8IvD6rvx-9JHoms4VYqzJ_3yj-MouxzFDXmu-iXZbMpOCwdNG2cwcc7UmjNubSg3nkRsz8hdhVs=s680-w680-h510-rw')"></div>
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                    <!-- Add Navigation -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Visit Us Section --><section id="visit" class="py-20 md:py-28 bg-gray-50">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                      <h2 class="text-3xl md:text-4xl font-bold text-coffee">Come Visit Us</h2>
@@ -360,6 +346,9 @@
             <a href="#home" class="mt-4 inline-block text-sm text-gray-400 hover:text-white">Back to Top &uarr;</a>
         </div>
     </footer>
+
+    <!-- Swiper.js Script -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -421,6 +410,34 @@
                 }
             }
             checkOpenStatus();
+
+            // --- Initialize Swiper ---
+            const swiper = new Swiper('.swiper', {
+                effect: 'coverflow',
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: 'auto',
+                coverflowEffect: {
+                    rotate: 50,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 1,
+                    slideShadows: true,
+                },
+                loop: true,
+                autoplay: {
+                    delay: 3500,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
         });
     </script>
 </body>
