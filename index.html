@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethio Coffee Shop - The Birthplace of Coffee</title>
+    
+    <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Playfair Display & Inter --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
+            color: #222222;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Keyframe for background animation */
+        @keyframes backgroundPan {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 10% 10%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            /* Use the provided image here */
+            background-image: url('https://images.unsplash.com/photo-1536227661368-deef57acf708?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170'); 
+            background-size: 110%; /* Slightly larger to allow for panning */
+            background-position: center;
+            filter: brightness(0.9) opacity(0.3); /* Adjust brightness/opacity to be subtle */
+            z-index: -1;
+            animation: backgroundPan 30s ease-in-out infinite alternate; /* Gentle animation */
+        }
+
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Custom Colors & Utilities */
+        :root {
+            --coffee: #6F4E37;
+            --coffee-dark: #5a3f2b;
+            --cream: #FDFBF7;
+            --charcoal: #222222;
+            --gold: #C19A6B;
+        }
+        .bg-coffee { background-color: var(--coffee); }
+        .text-coffee { color: var(--coffee); }
+        .border-coffee { border-color: var(--coffee); }
+        .hover\:bg-coffee-dark:hover { background-color: var(--coffee-dark); }
+        .text-gold { color: var(--gold); }
+
+        /* Header Styling */
+        #header.scrolled {
+            background-color: rgba(253, 251, 247, 0.85); /* Semi-transparent cream */
+            backdrop-filter: blur(10px);
+            --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+            color: var(--charcoal);
+        }
+        #header.scrolled .nav-link { color: var(--charcoal); }
+        #header.scrolled .nav-link.active { color: var(--coffee); }
+        #header.scrolled #menu-btn { color: var(--charcoal); }
+
+        .nav-link.active {
+            color: white;
+            font-weight: 500;
+            position: relative;
+        }
+        #header:not(.scrolled) .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: white;
+        }
+        #header.scrolled .nav-link.active::after {
+             content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--coffee);
+        }
+
+
+        /* Hero Section */
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://unsplash.com/photos/white-ceramic-mug-and-saucer-with-coffee-beans-on-brown-textile-tNALoIZhqVM=format&fit=crop&w=1974&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Menu Card Styles */
+        .menu-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        }
+
+        /* Animation Styles */
+        /* Removed old floating-element animations as they are replaced by the new background animation */
+        
+        @keyframes rise {
+            0% { transform: translateY(0) scale(0.8); opacity: 0; }
+            50% { opacity: 0.2; }
+            100% { transform: translateY(-80px) scale(1.2); opacity: 0; }
+        }
+        .aroma-stream {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 3px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            opacity: 0;
+            animation: rise 6s infinite;
+        }
+        
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .status-badge.open { background-color: #dcfce7; color: #166534; }
+        .status-badge.closed { background-color: #fee2e2; color: #991b1b; }
+        .status-badge .dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        .status-badge.open .dot { background-color: #22c55e; }
+        .status-badge.closed .dot { background-color: #ef4444; }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Removed old floating animated elements to use the new background image --><!-- Header & Navigation --><header id="header" class="fixed top-0 left-0 right-0 z-50 text-white transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold" style="font-family: 'Playfair Display', serif;">Ethio Coffee</a>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#story" class="nav-link relative transition-colors duration-300">Our Story</a>
+                <a href="#menu" class="nav-link relative transition-colors duration-300">Menu</a>
+                <a href="#visit" class="nav-link relative transition-colors duration-300">Visit Us</a>
+            </nav>
+            
+            <button id="menu-btn" class="md:hidden z-50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section --><section id="home" class="hero-bg h-screen flex items-center justify-center text-center text-white relative">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 pointer-events-none">
+                <div class="aroma-stream" style="animation-delay: 0s;"></div>
+                <div class="aroma-stream" style="animation-delay: 1.5s; left: 40%;"></div>
+                <div class="aroma-stream" style="animation-delay: 3s; left: 60%;"></div>
+            </div>
+            <div class="max-w-2xl px-4 z-10">
+                <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-4">The Most Authentic Coffee in Toronto</h1>
+                <p class="text-lg md:text-xl mb-8">Experience authentic Ethiopian coffee culture in the heart of Scarborough.</p>
+                <a href="#menu" class="bg-coffee hover:bg-coffee-dark text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300">Explore Our Menu</a>
+            </div>
+        </section>
+
+        <!-- Our Story Section --><section id="story" class="py-20 md:py-28 bg-cream">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="order-2 md:order-1">
+                        <img src="https://images.unsplash.com/photo-1671225142630-6fd7deff0def?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687" class="rounded-lg shadow-xl w-full h-auto object-cover">
+                    </div>
+                    <div class="text-center md:text-left order-1 md:order-2">
+                        <h2 class="text-3xl md:text-4xl font-bold text-coffee mb-4">A Tradition in Every Cup</h2>
+                        <p class="mb-4 text-gray-700 leading-relaxed">
+                            Ethio Coffee Shop was born from a passion for sharing the rich heritage of Ethiopian coffee. Our beans are sourced directly from the finest family-owned farms in Ethiopia, the very birthplace of coffee. 
+                        </p>
+                        <p class="text-gray-700 leading-relaxed">
+                            We honor the traditional coffee ceremony, a cornerstone of our culture, in every brew we prepare. It's more than just a drink; it's a ritual of hospitality and connection we share with our community.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Section --><section id="menu" class="py-20 md:py-28 bg-gray-50">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-coffee mb-2">Our Menu</h2>
+                <p class="mb-12 text-gray-600 max-w-2xl mx-auto">Authentic dishes prepared with fresh ingredients and traditional Ethiopian spices. Coffee menu available in-store.</p>
+
+                <!-- Category: Traditional Breakfast & Porridges --><div class="mb-16">
+                    <h3 class="text-2xl md:text-3xl font-bold text-coffee mb-8">Traditional Breakfast & Porridges</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
+                        <div class="menu-card">
+                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Genfo</h4>
+                            <p class="text-gold font-bold text-lg mb-2">$14.00</p>
+                            <p class="text-gray-600 text-sm">A thick, comforting barley porridge served with a well of spiced butter (kibe) and chili powder (berbere).</p>
+                        </div>
+                        <div class="menu-card">
+                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Chechebsa</h4>
+                            <p class="text-gold font-bold text-lg mb-2">$13.00</p>
+                            <p class="text-gray-600 text-sm">Torn pieces of flatbread sautéed in spiced butter and berbere. A savory, popular breakfast dish.</p>
+                        </div>
+                        <div class="menu-card">
+                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Bula</h4>
+                            <p class="text-gold font-bold text-lg mb-2">$14.00</p>
+                            <p class="text-gray-600 text-sm">A nutritious porridge made from the root of the Enset plant, known for its smooth, delicate flavor.</p>
+                        </div>
+                         <div class="menu-card">
+                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Kencha</h4>
+                            <p class="text-gold font-bold text-lg mb-2">$10.00</p>
+                            <p class="text-gray-600 text-sm">A traditional dish made from finely ground grains, similar to a flatbread, served with flavorful accompaniments.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category: Fitfit & Firfir --><div class="mb-16">
+                    <h3 class="text-2xl md:text-3xl font-bold text-coffee mb-8">Fitfit & Firfir</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+                        <div class="menu-card">
+                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Tomato Fitfit</h4>
+                            <p class="text-gold font-bold text-lg mb-2">$10.00</p>
+                            <p class="text-gray-600 text-sm">Pieces of injera mixed with a fresh, seasoned tomato sauce, onions, and peppers.</p>
+                        </div>
+                        <div class="menu-card">
+                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Injera Firfir</h4>
+                            <p class="text-gold font-bold text-lg mb-2">$16.00</p>
+                            <p class="text-gray-600 text-sm">Shredded injera soaked in a savory, spicy stew. A classic and hearty vegetarian staple.</p>
+                        </div>
+                        <div class="menu-card">
+                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Meat Firfir</h4>
+                            <p class="text-gold font-bold text-lg mb-2">$18.00</p>
+                            <p class="text-gray-600 text-sm">Our classic injera firfir featuring tender pieces of seasoned beef for a richer flavor.</p>
+                        </div>
+                        <div class="menu-card">
+                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Sunflower Fitfit</h4>
+                            <p class="text-gold font-bold text-lg mb-2">$10.00</p>
+                            <p class="text-gray-600 text-sm">A unique and nutty fitfit made with ground sunflower seeds, spices, and bits of injera.</p>
+                        </div>
+                        <div class="menu-card">
+                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Flaxseed Fitfit</h4>
+                            <p class="text-gold font-bold text-lg mb-2">$10.00</p>
+                            <p class="text-gray-600 text-sm">A healthy and flavorful option with ground flaxseed sauce mixed with torn injera.</p>
+                        </div>
+                         <div class="menu-card">
+                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Egg Firfir</h4>
+                            <p class="text-gold font-bold text-lg mb-2">$12.00</p>
+                            <p class="text-gray-600 text-sm">Scrambled eggs cooked with spices, onions, and torn injera for a fulfilling meal.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category: Savory Plates & Specialties --><div>
+                    <h3 class="text-2xl md:text-3xl font-bold text-coffee mb-8">Savory Plates & Specialties</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
+                        <div class="menu-card">
+                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Fuul</h4>
+                            <p class="text-gold font-bold text-lg mb-2">$13.00</p>
+                            <p class="text-gray-600 text-sm">A hearty dish of mashed fava beans seasoned with spices, fresh onion, and tomato.</p>
+                        </div>
+                        <div class="menu-card">
+                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Special Fuul</h4>
+                            <p class="text-gold font-bold text-lg mb-2">$14.00</p>
+                            <p class="text-gray-600 text-sm">Our classic Fuul enhanced with yogurt, feta, and extra toppings for a richer experience.</p>
+                        </div>
+                        <div class="menu-card">
+                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Fata for One</h4>
+                            <p class="text-gold font-bold text-lg mb-2">$10.00</p>
+                            <p class="text-gray-600 text-sm">Pieces of bread soaked in a delicious, spiced stew. A perfect single serving.</p>
+                        </div>
+                        <div class="menu-card">
+                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Fata for Two</h4>
+                            <p class="text-gold font-bold text-lg mb-2">$14.00</p>
+                            <p class="text-gray-600 text-sm">A larger, shareable portion of our savory Fata. Perfect for enjoying together.</p>
+                        </div>
+                         <div class="menu-card">
+                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Kitfo Dulet</h4>
+                            <p class="text-gold font-bold text-lg mb-2">$14.00</p>
+                            <p class="text-gray-600 text-sm">A delicacy of finely chopped beef, tripe, and liver seasoned with mitmita and spiced butter.</p>
+                        </div>
+                        <div class="menu-card">
+                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Kitfo Sandwich</h4>
+                            <p class="text-gold font-bold text-lg mb-2">$10.00</p>
+                            <p class="text-gray-600 text-sm">Our signature Kitfo (minced raw beef) seasoned and served in a fresh bread roll.</p>
+                        </div>
+                         <div class="menu-card">
+                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Egg Sandwich</h4>
+                            <p class="text-gold font-bold text-lg mb-2">$10.00</p>
+                            <p class="text-gray-600 text-sm">Freshly scrambled eggs seasoned with Ethiopian spices and served in a warm bread roll.</p>
+                        </div>
+                        <div class="menu-card">
+                            <h4 class="text-xl font-semibold font-serif text-charcoal mb-2">Home made Burger</h4>
+                            <p class="text-gold font-bold text-lg mb-2">$13.00</p>
+                            <p class="text-gray-600 text-sm">A juicy beef patty seasoned with a unique blend of our house spices, served on a toasted bun.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Visit Us Section --><section id="visit" class="py-20 md:py-28 bg-cream">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                     <h2 class="text-3xl md:text-4xl font-bold text-coffee">Come Visit Us</h2>
+                     <p id="shop-status-message" class="text-gray-600 mt-4"></p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 items-start">
+                    <div class="text-gray-700">
+                        <h3 class="text-xl font-bold mb-4">Location & Hours</h3>
+                        <p>3224 Danforth Ave<br>Scarborough, ON M1L 1C1</p>
+                        <div id="status-badge-container" class="my-4"></div>
+                        <p class="font-semibold mt-4">Monday - Sunday</p>
+                        <p>7:00 AM - 7:00 PM</p>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=3224+Danforth+Ave,+Scarborough,+ON+M1L+1C1" target="_blank" rel="noopener noreferrer" class="inline-block bg-coffee hover:bg-coffee-dark text-white font-bold py-3 px-6 rounded-lg text-base transition duration-300 mt-6">
+                            Get Directions
+                        </a>
+                    </div>
+                    <div class="rounded-lg overflow-hidden shadow-xl h-96">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2884.343161730032!2d-79.2800014238517!3d43.69685997109918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4ce8f1a000001%3A0x6b63f71587390e4a!2s3224%20Danforth%20Ave%2C%20Scarborough%2C%20ON%20M1L%201C1!5e0!3m2!1sen!2sca!4v1729491176503!5m2!1sen!2sca" 
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer --><footer class="bg-charcoal text-white py-10">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Ethio Coffee Shop. All Rights Reserved.</p>
+            <a href="#home" class="mt-4 inline-block text-sm text-gray-400 hover:text-white">Back to Top &uarr;</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.getElementById('header');
+            const menuBtn = document.getElementById('menu-btn');
+            // Mobile menu logic can be added here if needed
+            
+            // --- Header Scroll Effect ---
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // --- Active Nav Link on Scroll ---
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: '-50% 0px -50% 0px' });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // --- Dynamic Opening Hours ---
+            const statusContainer = document.getElementById('status-badge-container');
+            const statusMessage = document.getElementById('shop-status-message');
+            
+            const hours = {
+                open: 7, // 7 AM
+                close: 19 // 7 PM (19 in 24-hour format)
+            };
+
+            function checkOpenStatus() {
+                const now = new Date(new Date().toLocaleString("en-US", {timeZone: "America/Toronto"}));
+                const hour = now.getHours();
+
+                const isOpen = hour >= hours.open && hour < hours.close;
+
+                if (isOpen) {
+                    statusContainer.innerHTML = `<div class="status-badge open"><span class="dot"></span>We're Open!</div>`;
+                    statusMessage.textContent = "We'd love to see you. Come on in!";
+                } else {
+                    statusContainer.innerHTML = `<div class="status-badge closed"><span class="dot"></span>We're Closed</div>`;
+                    statusMessage.textContent = "We're currently closed, but we look forward to seeing you soon!";
+                }
+            }
+            checkOpenStatus();
+        });
+    </script>
+</body>
+</html>
+
