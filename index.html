@@ -23,6 +23,9 @@
             position: relative;
             overflow-x: hidden;
         }
+        body.menu-open {
+            overflow: hidden;
+        }
 
         /* Keyframe for background animation */
         @keyframes backgroundPan {
@@ -35,13 +38,12 @@
             content: '';
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            /* Use the provided image here */
             background-image: url('https://images.unsplash.com/photo-1536227661368-deef57acf708?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170'); 
-            background-size: 110%; /* Slightly larger to allow for panning */
+            background-size: 110%;
             background-position: center;
-            filter: brightness(0.9) opacity(0.3); /* Adjust brightness/opacity to be subtle */
+            filter: brightness(0.9) opacity(0.3);
             z-index: -1;
-            animation: backgroundPan 30s ease-in-out infinite alternate; /* Gentle animation */
+            animation: backgroundPan 30s ease-in-out infinite alternate;
         }
 
 
@@ -62,14 +64,13 @@
         .border-coffee { border-color: var(--coffee); }
         .hover\:bg-coffee-dark:hover { background-color: var(--coffee-dark); }
         .text-gold { color: var(--gold); }
+        .bg-cream { background-color: var(--cream); }
 
         /* Header Styling */
         #header.scrolled {
-            background-color: rgba(253, 251, 247, 0.85); /* Semi-transparent cream */
+            background-color: rgba(253, 251, 247, 0.85);
             backdrop-filter: blur(10px);
-            --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
-            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
             color: var(--charcoal);
         }
         #header.scrolled .nav-link { color: var(--charcoal); }
@@ -104,7 +105,10 @@
         .mobile-menu {
             transition: transform 0.3s ease-in-out;
         }
-        .mobile-menu.hidden {
+        .mobile-menu.is-open {
+            transform: translateX(0%);
+        }
+        .mobile-menu:not(.is-open) {
             transform: translateX(100%);
         }
 
@@ -214,19 +218,23 @@
                 <a href="#visit" class="nav-link relative transition-colors duration-300">Visit Us</a>
             </nav>
             
-            <button id="menu-btn" class="md:hidden z-50">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+            <button id="menu-btn" class="md:hidden z-[60]">
+                <svg id="menu-open-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                <svg id="menu-close-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
         </div>
     </header>
 
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden"></div>
+
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="mobile-menu hidden fixed top-0 right-0 h-full w-2/3 max-w-sm bg-cream z-40 shadow-xl p-6">
-        <div class="flex flex-col space-y-8 mt-16 text-center">
-            <a href="#story" class="mobile-menu-link text-charcoal text-xl">Our Story</a>
-            <a href="#menu" class="mobile-menu-link text-charcoal text-xl">Menu</a>
-            <a href="#gallery" class="mobile-menu-link text-charcoal text-xl">Gallery</a>
-            <a href="#visit" class="mobile-menu-link text-charcoal text-xl">Visit Us</a>
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-2/3 max-w-xs bg-cream z-40 shadow-lg rounded-l-2xl p-6">
+        <div class="flex flex-col space-y-8 mt-20 text-center">
+            <a href="#story" class="mobile-menu-link text-charcoal text-xl font-medium">Our Story</a>
+            <a href="#menu" class="mobile-menu-link text-charcoal text-xl font-medium">Menu</a>
+            <a href="#gallery" class="mobile-menu-link text-charcoal text-xl font-medium">Gallery</a>
+            <a href="#visit" class="mobile-menu-link text-charcoal text-xl font-medium">Visit Us</a>
         </div>
     </div>
 
@@ -312,14 +320,14 @@
                 <!-- Swiper -->
                 <div class="swiper">
                     <div class="swiper-wrapper">
-						<div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4npwxoNhWkO_H8fId4Qb9lgN_bxWttBq-heK0pkCCybxNcyRSROy9w5fvw56rnqmeV08rZzXRWgGIN46Z2BWaVhq-9DxJ4vVEGpKVEBHi5231Itjl8KlLOIDK0onTv8YJhC4H5kebg=s680-w680-h510-rw')"></div>
+                        <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4npwxoNhWkO_H8fId4Qb9lgN_bxWttBq-heK0pkCCybxNcyRSROy9w5fvw56rnqmeV08rZzXRWgGIN46Z2BWaVhq-9DxJ4vVEGpKVEBHi5231Itjl8KlLOIDK0onTv8YJhC4H5kebg=s680-w680-h510-rw')"></div>
                         <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4npCIbc-w64aLtkrXVPCY8UX4WZpeNQeItuuPveOvikKGSsVCcQ7FhmMQ101zOdFgtuXuJbJy3O8Uxc7pobhIkxwI5gBPIx3HC9GHlxm5JOwkRqu3CKdFzvyc2EXH9rpmm20KDFs=s680-w680-h510-rw')"></div>
                         <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4npxPp3dxJBKtSgDNmFbTdhpgxzyhDLxykyTO2fMD1BIJyD9o-8ZLa6dTPzR_jPxJS_dGW83mZU0Db1YRHP_lx0zB4HLOhi1fTUM61vymgR9CnL73bFuKhjVel_WXWWhXtEpKR67yf26vaa0=s680-w680-h510-rw')"></div>
                         <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrkOQWev4gmyV8SqbArAsjTHNkNgHvkfl2igId27mAg5CQmAdnyKtWS0uOm9uLdGSU7BKRnBK6m-IAfM5RkY3G6_N_nO9-jipvyNmnNNyJq3bK1RV1HKVYf8fpZv7fjDD2KASu0Sg=s680-w680-h510-rw')"></div>
                         <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqRukHnVTid1z34iWTSyGAZubuJrFvaqUkzw1rUkcRAhbwX8Du-wzuR4JVSSbTKP15xX80vdkiNOYqk_p8lQWePUHoUz8vOtla_E2JsyInhDvg2IYF9--c0fIJQ6bjrT0R4d92TYg=s680-w680-h510-rw')"></div>
-                         <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqXAHzsLwnyCyGxEfwJmTv6Z45GNuhJ0Nku0qAXG92DoVorF3bSp1CSKDcG7NByvBgdn3dcXDmIOM7gT0j2VO33YAyyRRMsH6gXTCvQAATN79SC6ygd4M4EZ8QTHVMdg8RTS6xF=s680-w680-h510-rw')"></div>
-                         <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4nq53rAFqsOtk3vM-wz5ekYUEZRZ4HwBCMoM4DysMcmk_P4NTNhYGPpusKKKrtrdqnkyTknwRZXsAwei0kHH_NhCuLuIBgFthifmpQFvVSTVOXOM2VFHGfTQ4dF5K8UvH48T11pl=s680-w680-h510-rw')"></div>
-                         <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrQ5CnJ2D2gB4mH3J2Oo4a3HPYzWLSFm657Obi_jrf5DpsNvAo-UrXKHht0x8IvD6rvx-9JHoms4VYqzJ_3yj-MouxzFDXmu-iXZbMpOCwdNG2cwcc7UmjNubSg3nkRsz8hdhVs=s680-w680-h510-rw')"></div>
+                        <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqXAHzsLwnyCyGxEfwJmTv6Z45GNuhJ0Nku0qAXG92DoVorF3bSp1CSKDcG7NByvBgdn3dcXDmIOM7gT0j2VO33YAyyRRMsH6gXTCvQAATN79SC6ygd4M4EZ8QTHVMdg8RTS6xF=s680-w680-h510-rw')"></div>
+                        <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4nq53rAFqsOtk3vM-wz5ekYUEZRZ4HwBCMoM4DysMcmk_P4NTNhYGPpusKKKrtrdqnkyTknwRZXsAwei0kHH_NhCuLuIBgFthifmpQFvVSTVOXOM2VFHGfTQ4dF5K8UvH48T11pl=s680-w680-h510-rw')"></div>
+                        <div class="swiper-slide" style="background-image:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrQ5CnJ2D2gB4mH3J2Oo4a3HPYzWLSFm657Obi_jrf5DpsNvAo-UrXKHht0x8IvD6rvx-9JHoms4VYqzJ_3yj-MouxzFDXmu-iXZbMpOCwdNG2cwcc7UmjNubSg3nkRsz8hdhVs=s680-w680-h510-rw')"></div>
                     </div>
                     <!-- Add Pagination -->
                     <div class="swiper-pagination"></div>
@@ -373,17 +381,28 @@
             const header = document.getElementById('header');
             const menuBtn = document.getElementById('menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
             const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
-            
-            // --- Mobile Menu Toggle ---
-            menuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
+            const body = document.body;
+            const openIcon = document.getElementById('menu-open-icon');
+            const closeIcon = document.getElementById('menu-close-icon');
 
-            // --- Close Mobile Menu on Link Click ---
+            const toggleMenu = () => {
+                mobileMenu.classList.toggle('is-open');
+                mobileMenuOverlay.classList.toggle('hidden');
+                body.classList.toggle('menu-open');
+                openIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            };
+            
+            menuBtn.addEventListener('click', toggleMenu);
+            mobileMenuOverlay.addEventListener('click', toggleMenu);
+
             mobileMenuLinks.forEach(link => {
                 link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
+                    if (mobileMenu.classList.contains('is-open')) {
+                        toggleMenu();
+                    }
                 });
             });
             
