@@ -358,33 +358,61 @@
             </div>
         </section>
 
-        <!-- Visit Us Section --><section id="visit" class="py-20 md:py-28 bg-gray-50">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                     <h2 class="text-3xl md:text-4xl font-bold text-coffee">Come Visit Us</h2>
-                     <p id="shop-status-message" class="text-gray-600 mt-4"></p>
-                </div>
-                <div class="grid md:grid-cols-2 gap-12 items-start">
-                    <div class="text-gray-700">
-                        <h3 class="text-xl font-bold mb-4">Location & Hours</h3>
-                        <p>3224 Danforth Ave<br>Scarborough, ON M1L 1C1</p>
-                        <div id="status-badge-container" class="my-4"></div>
-                        <p class="font-semibold mt-4">Monday - Sunday</p>
-                        <p>7:00 AM - 7:00 PM</p>
-                        <a href="https://www.google.com/maps/dir/?api=1&destination=3224+Danforth+Ave,+Scarborough,+ON+M1L+1C1" target="_blank" rel="noopener noreferrer" class="inline-block bg-coffee hover:bg-coffee-dark text-white font-bold py-3 px-6 rounded-lg text-base transition duration-300 mt-6">
-                            Get Directions
-                        </a>
-                    </div>
-                    <div class="rounded-lg overflow-hidden shadow-xl h-96">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2884.343161730032!2d-79.2800014238517!3d43.69685997109918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4ce8f1a000001%3A0x6b63f71587390e4a!2s3224%20Danforth%20Ave%2C%20Scarborough%2C%20ON%20M1L%201C1!5e0!3m2!1sen!2sca!4v1729491176503!5m2!1sen!2sca" 
-                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
+<!-- Visit Us Section -->
+<section id="visit" class="py-20 md:py-28 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+             <h2 class="text-3xl md:text-4xl font-bold text-coffee">Visit Our Locations</h2>
+             <p class="text-gray-600 mt-2">Find the Ethio Natural Coffee Shop nearest you.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-12 items-start">
+            <!-- Danforth Location -->
+            <div class="bg-cream p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-coffee mb-4">Danforth Ave</h3>
+                <p class="text-gray-700 font-semibold">3224 Danforth Ave<br>Scarborough, ON M1L 1C1</p>
+                <p class="text-sm text-gray-600 mt-2 mb-4">Perfect for Drink & Coffee Takeout</p>
+                
+                <div id="status-badge-container-danforth" class="mb-4"></div>
+                <p class="font-semibold text-gray-700">Hours:</p>
+                <p class="text-gray-700">Monday - Sunday: 7:00 AM - 7:00 PM</p>
+                <p id="shop-status-message-danforth" class="text-sm text-gray-600 mt-2"></p>
+                
+                <a href="https://www.google.com/maps/dir/?api=1&destination=3224+Danforth+Ave,+Scarborough,+ON+M1L+1C1" target="_blank" rel="noopener noreferrer" class="inline-block bg-coffee hover:bg-coffee-dark text-white font-bold py-2 px-5 rounded-lg text-sm transition duration-300 mt-4">
+                    Get Directions
+                </a>
+                <div class="rounded-lg overflow-hidden shadow-xl h-64 mt-6">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2884.343161730032!2d-79.2800014238517!3d43.69685997109918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4ce8f1a000001%3A0x6b63f71587390e4a!2s3224%20Danforth%20Ave%2C%20Scarborough%2C%20ON%20M1L%201C1!5e0!3m2!1sen!2sca!4v1729491176503!5m2!1sen!2sca" 
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                 </div>
             </div>
-        </section>
-    </main>
+
+            <!-- Bloor Location -->
+             <div class="bg-cream p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-coffee mb-4">Bloor St W</h3>
+                 <p class="text-gray-700 font-semibold">908 Bloor St W<br>Toronto, ON M6G 1L7</p>
+                 <p class="text-sm text-gray-600 mt-2 mb-4">Ideal for Dine-in & Drinks</p>
+                
+                <div id="status-badge-container-bloor" class="mb-4"></div>
+                 <p class="font-semibold text-gray-700">Hours:</p>
+                 <p class="text-gray-700">Monday - Sunday: 8:00 AM - 8:00 PM</p>
+                 <p id="shop-status-message-bloor" class="text-sm text-gray-600 mt-2"></p>
+                
+                <a href="https://www.google.com/maps/dir/?api=1&destination=908+Bloor+St+W,+Toronto,+ON+M6G+1L7" target="_blank" rel="noopener noreferrer" class="inline-block bg-coffee hover:bg-coffee-dark text-white font-bold py-2 px-5 rounded-lg text-sm transition duration-300 mt-4">
+                    Get Directions
+                </a>
+                 <div class="rounded-lg overflow-hidden shadow-xl h-64 mt-6">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2886.4217030800726!2d-79.42629192385386!3d43.66034007110189!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b34645258f33d%3A0x64e831633a693635!2s908%20Bloor%20St%20W%2C%20Toronto%2C%20ON%20M6G%201L7!5e0!3m2!1sen!2sca!4v1729606277051!5m2!1sen!2sca"
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
     <!-- Footer --><footer class="bg-charcoal text-white py-10">
         <div class="container mx-auto px-6 text-center">
@@ -465,21 +493,30 @@
                 close: 19 // 7 PM (19 in 24-hour format)
             };
 
-            function checkOpenStatus() {
-                const now = new Date(new Date().toLocaleString("en-US", {timeZone: "America/Toronto"}));
-                const hour = now.getHours();
+            // --- Dynamic Opening Hours Function ---
+function checkOpenStatus(locationId, hours) {
+    const statusContainer = document.getElementById(`status-badge-container-${locationId}`);
+    const statusMessage = document.getElementById(`shop-status-message-${locationId}`);
+    
+    if (!statusContainer || !statusMessage) return; // Exit if elements not found
 
-                const isOpen = hour >= hours.open && hour < hours.close;
+    const now = new Date(new Date().toLocaleString("en-US", {timeZone: "America/Toronto"}));
+    const hour = now.getHours();
+    const isOpen = hour >= hours.open && hour < hours.close;
 
-                if (isOpen) {
-                    statusContainer.innerHTML = `<div class="status-badge open"><span class="dot"></span>We're Open!</div>`;
-                    statusMessage.textContent = "We'd love to see you. Come on in!";
-                } else {
-                    statusContainer.innerHTML = `<div class="status-badge closed"><span class="dot"></span>We're Closed</div>`;
-                    statusMessage.textContent = "We're currently closed, but we look forward to seeing you soon!";
-                }
-            }
-            checkOpenStatus();
+    if (isOpen) {
+        statusContainer.innerHTML = `<div class="status-badge open"><span class="dot"></span>We're Open!</div>`;
+        statusMessage.textContent = "We'd love to see you. Come on in!";
+    } else {
+        statusContainer.innerHTML = `<div class="status-badge closed"><span class="dot"></span>We're Closed</div>`;
+        statusMessage.textContent = "We're currently closed, but we look forward to seeing you soon!";
+    }
+}
+
+// --- Check Status for Both Locations ---
+ checkOpenStatus('danforth', { open: 7, close: 19 }); // 7 AM - 7 PM
+ checkOpenStatus('bloor', { open: 8, close: 20 }); // 8 AM - 8 PM
+
 
             // --- Initialize Swiper ---
             const swiper = new Swiper('.swiper', {
